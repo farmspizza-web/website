@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Farms Pizza — Roseville, CA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tilt+Warp&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    
+    /* ══════ NEIGHBOR LIST ══════ */
+    #s-neighbor{
+      background:var(--black);
+      position:relative;overflow:hidden;
+    }
+    #s-neighbor::before{
+      content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+      background:var(--blue);
+      z-index:0
+    }
+    #s-neighbor::after{
+      content:'';position:absolute;bottom:-60px;right:5%;
+      width:320px;height:320px;
+      background:var(--orange50);border-radius:50%;
+      opacity:.12;filter:blur(60px);pointer-events:none;z-index:0
+    }
+    .neighbor-inner{
+      max-width:1200px;margin:0 auto;
+      display:grid;grid-template-columns:1fr 1fr;
+      align-items:center;
+      position:relative;z-index:1;
+      min-height:520px
+    }
+    .neighbor-text{
+      padding:72px 56px 72px 72px;
+      display:flex;flex-direction:column;gap:0
+    }
+    .neighbor-eyebrow{
+      font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+      letter-spacing:.26em;text-transform:uppercase;
+      color:var(--orange50);margin-bottom:16px;
+      display:flex;align-items:center;gap:8px
+    }
+    .neighbor-eyebrow::before{content:'';width:20px;height:2px;background:var(--orange50)}
+    .neighbor-h{
+      font-family:'Luckiest Guy',cursive;
+      font-size:clamp(32px,4vw,58px);
+      color:var(--cream);line-height:.92;letter-spacing:.02em;
+      margin-bottom:20px
+    }
+    .neighbor-h span{color:var(--orange50)}
+    .neighbor-offer{
+      display:inline-flex;align-items:center;gap:12px;
+      background:rgba(255,88,28,.15);
+      border:1.5px solid rgba(255,120,71,.35);
+      border-radius:10px;padding:14px 18px;
+      margin-bottom:22px;width:fit-content
+    }
+    .neighbor-offer-emoji{font-size:32px;flex-shrink:0}
+    .neighbor-offer-text{
+      font-family:'Tilt Warp',sans-serif;font-size:15px;
+      color:var(--cream);line-height:1.4
+    }
+    .neighbor-offer-text strong{color:var(--orange50);display:block;font-size:18px}
+    .neighbor-perks{
+      list-style:none;display:flex;flex-direction:column;gap:10px;
+      margin-bottom:32px
+    }
+    .neighbor-perks li{
+      font-family:'Poppins',sans-serif;font-size:13.5px;
+      color:rgba(254,251,234,.65);
+      display:flex;align-items:center;gap:10px;line-height:1.5
+    }
+    .neighbor-perks li::before{
+      content:'';width:20px;height:20px;flex-shrink:0;
+      background:var(--orange);border-radius:50%;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-size:12px;background-repeat:no-repeat;background-position:center
+    }
+    .neighbor-cta-btn{
+      font-family:'Luckiest Guy',cursive;font-size:17px;letter-spacing:.1em;
+      background:var(--orange);color:var(--cream);
+      padding:15px 32px;border-radius:4px;border:none;
+      text-decoration:none;display:inline-block;width:fit-content;
+      cursor:pointer;box-shadow:5px 5px 0 rgba(0,0,0,.3);
+      transition:transform .2s,box-shadow .2s
+    }
+    .neighbor-cta-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 rgba(0,0,0,.3)}
+    .neighbor-fine{
+      font-family:'Poppins',sans-serif;font-size:10.5px;
+      color:rgba(254,251,234,.25);margin-top:12px
+    }
+    .neighbor-img-wrap{
+      position:relative;
+      min-height:520px;
+      height:100%;
+      overflow:hidden;
+      align-self:stretch;  /* ← makes it stretch to full section height */
+    }
+    .neighbor-img-wrap img{
+      position:absolute;  /* ← key change */
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .6s ease
+    }
+    .neighbor-img-wrap:hover img{transform:scale(1.03)}
+    .neighbor-badge{
+      position:absolute;top:28px;left:-12px;
+      background:var(--orange);color:var(--cream);
+      font-family:'Luckiest Guy',cursive;font-size:13px;letter-spacing:.1em;
+      padding:8px 20px 8px 24px;
+      clip-path:polygon(0 0,100% 0,94% 100%,0 100%);
+      box-shadow:3px 3px 0 rgba(0,0,0,.25);
+      z-index:2
+    }
+    .neighbor-img-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to right,rgba(20,20,204,.45) 0%,transparent 40%);
+      pointer-events:none
+    }
+    @media(max-width:768px){
+      #s-neighbor::before{
+        display:none  /* full blue bg handles it now */
+      }
+      #s-neighbor::after{
+        display:none  /* remove glow on mobile */
+      }
+      .neighbor-inner{
+        grid-template-columns:1fr;
+        min-height:unset
+      }
+      /* image goes first on mobile so it's the hero */
+      .neighbor-img-wrap{
+        order:-1;
+        min-height:240px;
+        height:240px;
+        width:100%
+      }
+      .neighbor-img-wrap img{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover
+      }
+      .neighbor-badge{
+        font-size:11px;
+        padding:6px 16px 6px 20px
+      }
+      .neighbor-text{
+        padding:36px 24px 48px;
+        align-items:center;
+        text-align:center
+      }
+      .neighbor-eyebrow{
+        justify-content:center
+      }
+      .neighbor-h{
+        font-size:clamp(28px,8vw,40px);
+        text-align:center
+      }
+      .neighbor-offer{
+        width:100%;
+        box-sizing:border-box;
+        justify-content:center;
+        text-align:left
+      }
+      .neighbor-perks{
+        text-align:left;
+        width:100%
+      }
+      .neighbor-cta-btn{
+        width:100%;
+        text-align:center;
+        box-sizing:border-box;
+        font-size:15px
+      }
+      .neighbor-fine{
+        text-align:center
+      }
+    }
+    
+    
+    
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2F2FEA;--blue70:#4343EC;--blue50:#6D6DF1;--blue20:#D5D5FB;--blue10:#EEEEFF;
+  --orange:#FF581C;--orange70:#FF6830;--orange50:#FF7847;--orange20:#FFD9C8;--orange10:#FFF2EC;
+  --cream:#FEFBEA;--black:#000;--gray80:#333;--gray60:#4D4D4D;--gray40:#808080;--gray20:#CCC;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--cream);color:var(--black);font-family:'Poppins',sans-serif;overflow-x:hidden;cursor:none}
+#cur{position:fixed;width:12px;height:12px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+#cur-ring{position:fixed;width:36px;height:36px;border:2px solid var(--blue50);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .09s linear}
+body.hov #cur{width:20px;height:20px;background:var(--blue)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--orange50);width:0%;z-index:9998}
+
+/* ══════════════════════════════════════════
+   HERO GATE — DANCING ALPACA
+══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   MAIN PAGE
+══════════════════════════════════════════ */
+#main{opacity:1;transform:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,padding .3s,box-shadow .3s}
+nav.sc{background:rgba(254,251,234,.96);backdrop-filter:blur(16px);padding:14px 48px;box-shadow:0 1px 0 rgba(0,0,0,.07)}
+.nav-logo{display:flex;align-items:center;transition:opacity .3s}
+nav.sc .nav-logo{opacity:1}
+.nav-logo span{display:none}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-family:'Poppins',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(254,251,234,.7);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--orange50);transition:width .25s}
+.nav-links a:hover::after{width:100%}
+nav.sc .nav-links a{color:var(--gray60)}
+.nav-links a:hover{color:var(--orange50)}
+nav.sc .nav-links a:hover{color:var(--orange)}
+.nav-cta{font-family:'Luckiest Guy',cursive;font-size:14px;letter-spacing:.08em;background:var(--orange);color:var(--cream);padding:9px 20px;border-radius:3px;text-decoration:none;transition:background .2s,transform .15s,border-color .3s,color .3s;box-shadow:3px 3px 0 rgba(0,0,0,.2)}
+.nav-cta:hover{background:var(--orange50);transform:translate(-1px,-1px)}
+.nav-cta.ghost{background:transparent;border:2px solid rgba(254,251,234,.4);box-shadow:none;color:var(--cream)}
+nav.sc .nav-cta.ghost{border-color:rgba(47,47,234,.4);color:var(--blue)}
+nav.sc .nav-cta.ghost:hover{background:var(--blue10)}
+
+.nav-hamburger{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;z-index:901;padding:4px;
+  flex-shrink:0
+}
+.nav-hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--cream);border-radius:2px;
+  transition:transform .3s,opacity .3s,background .3s
+}
+nav.sc .nav-hamburger span{background:var(--black)}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  nav.sc{padding:12px 20px}
+  .nav-hamburger{display:flex}
+  .nav-links{
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    position:fixed;top:0;left:0;right:0;
+    background:var(--blue);
+    padding:80px 24px 32px;
+    transform:translateY(-100%);
+    transition:transform .4s cubic-bezier(.77,0,.18,1);
+    z-index:899;box-shadow:0 8px 40px rgba(0,0,0,.3)
+  }
+  nav.sc .nav-links{background:rgba(254,251,234,.98);backdrop-filter:blur(16px)}
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{
+    font-size:15px;padding:14px 0;
+    border-bottom:1px solid rgba(254,251,234,.1);
+    color:var(--cream)
+  }
+  nav.sc .nav-links a{color:var(--gray80);border-bottom-color:rgba(0,0,0,.07)}
+  .nav-links a::after{display:none}
+  .nav-links .nav-cta{
+    margin-top:16px;text-align:center;
+    padding:13px 20px;font-size:15px
+  }
+  .nav-links .nav-cta.ghost{border-color:rgba(254,251,234,.3);color:var(--cream)}
+  nav.sc .nav-links .nav-cta.ghost{border-color:rgba(47,47,234,.4);color:var(--blue)}
+}
+
+
+
+
+/* ══════ LANDING ══════ */
+#s-land{min-height:100vh;background:#1414cc url('Z.svg') center/cover no-repeat;display:flex;align-items:flex-start;justify-content:center;padding:88px 5% 60px;position:relative;overflow:hidden}
+#s-land::after{content:'';position:absolute;bottom:-80px;right:-80px;width:380px;height:380px;background:var(--orange50);border-radius:50%;opacity:.13;filter:blur(60px);pointer-events:none}
+.land-inner{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-width:1100px;position:relative;z-index:1}
+/* logo */
+.land-logo{display:flex;justify-content:center}
+.land-logo-img{width:clamp(200px,22vw,360px);height:auto;display:block;filter:invert(1) brightness(2)}
+/* media wrapper with overlay */
+.land-media-wrap{position:relative;width:100%}
+/* tagline overlay over media top */
+.land-overlay{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;flex-direction:column;align-items:center;padding:32px 24px 48px;background:linear-gradient(to bottom,rgba(20,20,180,0.78) 0%,rgba(20,20,180,0.5) 55%,transparent 100%);text-align:center;border-radius:16px 16px 0 0;pointer-events:none}
+.land-overlay .h-ctas{pointer-events:all}
+/* video full-width top */
+.land-video-cell{width:100%;border-radius:16px 16px 0 0;overflow:hidden;position:relative;height:clamp(260px,34vw,460px)}
+.land-video-cell video{width:100%;height:100%;object-fit:cover;display:block}
+/* photos row below */
+.land-photos-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.land-photos-row .media-cell{height:clamp(150px,17vw,230px)}
+.land-photos-row .media-cell:first-child{border-radius:0 0 0 16px}
+.land-photos-row .media-cell:last-child{border-radius:0 0 16px 0}
+.h-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--orange20);margin-bottom:12px}
+.h-eyebrow::before{content:'';width:20px;height:2px;background:var(--orange20)}
+.h1{font-family:'Luckiest Guy',cursive;font-size:clamp(38px,5.5vw,80px);color:var(--cream);line-height:.9;letter-spacing:.02em}
+.h1 .o{color:var(--orange50)}
+.h-sub{font-family:'Tilt Warp',sans-serif;font-size:clamp(13px,1.6vw,18px);color:rgba(254,251,234,.65);margin-top:14px;line-height:1.55;max-width:420px}
+.h-ctas{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-p{font-family:'Luckiest Guy',cursive;font-size:15px;letter-spacing:.1em;background:var(--orange);color:var(--cream);padding:13px 26px;border-radius:3px;border:none;text-decoration:none;display:inline-block;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:4px 4px 0 rgba(0,0,0,.25)}
+.btn-p:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,.25)}
+.btn-o{font-family:'Luckiest Guy',cursive;font-size:15px;letter-spacing:.1em;background:transparent;color:var(--cream);padding:13px 26px;border-radius:3px;border:2px solid rgba(254,251,234,.35);text-decoration:none;display:inline-block;cursor:pointer;transition:all .2s}
+.btn-o:hover{background:rgba(254,251,234,.1);border-color:rgba(254,251,234,.6)}
+/* media shared */
+.media-cell{border-radius:14px;overflow:hidden;position:relative}
+.media-cell img,.media-cell video{width:100%;height:100%;object-fit:cover;display:block}
+.media-label{position:absolute;bottom:10px;left:12px;font-family:'Luckiest Guy',cursive;font-size:11px;letter-spacing:.08em;color:var(--cream);background:rgba(0,0,0,.42);backdrop-filter:blur(4px);padding:3px 10px;border-radius:100px}
+.media-cell::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+
+/* MARQUEE */
+.mq-wrap{background:var(--orange70);overflow:hidden;padding:12px 0}
+.mq-track{display:flex;animation:mq 22s linear infinite;width:max-content}
+.mq-track span{font-family:'Luckiest Guy',cursive;font-size:17px;color:var(--cream);letter-spacing:.1em;padding:0 18px;white-space:nowrap}
+.mq-track .dot{color:rgba(254,251,234,.3)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══════ FEATURED ══════ */
+#s-featured{background:var(--cream);padding:80px 72px;position:relative;overflow:hidden}
+#s-featured::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,var(--blue10) 0%,var(--cream) 50%,var(--orange10) 100%);pointer-events:none}
+.featured-header{text-align:center;max-width:640px;margin:0 auto 48px;position:relative;z-index:1}
+.featured-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+.feat-card{border-radius:20px;overflow:hidden;background:var(--black);position:relative;cursor:pointer;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.feat-card:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 24px 50px rgba(0,0,0,.22)}
+.feat-img{width:100%;height:240px;object-fit:cover;display:block;transition:transform .5s}
+.feat-card:hover .feat-img{transform:scale(1.06)}
+.feat-img-placeholder{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-size:72px}
+.feat-body{padding:20px 22px 24px;background:var(--cream)}
+.feat-badge{display:inline-flex;align-items:center;gap:5px;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);background:var(--orange10);border:1.5px solid var(--orange20);padding:4px 10px;border-radius:100px;margin-bottom:10px}
+.feat-name{font-family:'Luckiest Guy',cursive;font-size:22px;letter-spacing:.04em;color:var(--black);line-height:1.05}
+.feat-desc{font-family:'Poppins',sans-serif;font-size:12.5px;color:var(--gray60);line-height:1.65;margin-top:7px}
+.feat-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+/* rank number overlay */
+.feat-rank{position:absolute;top:14px;left:14px;width:36px;height:36px;border-radius:50%;background:var(--orange);border:2.5px solid var(--black);display:flex;align-items:center;justify-content:center;font-family:'Luckiest Guy',cursive;font-size:16px;color:var(--cream);box-shadow:2px 2px 0 var(--black);z-index:2}
+.feat-rank.gold{background:var(--orange)}
+.feat-rank.silver{background:#9B9BEF}
+.feat-rank.bronze{background:#C4772A}
+@media(max-width:900px){.featured-grid{grid-template-columns:1fr}.feat-img,.feat-img-placeholder{height:200px} #s-land{
+    background-size:cover;
+    background-position:center center;
+  }}
+
+/* ══════ ARCADE ══════ */
+#s-arcade{background:var(--black);padding:80px 72px;position:relative;overflow:hidden}
+#s-arcade::before{content:'';position:absolute;inset:0;background-image:url('Z.svg');background-size:100% auto;background-repeat:no-repeat;background-position:center center;opacity:.18;pointer-events:none}
+#s-arcade::after{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:280px;background:var(--blue50);border-radius:50%;opacity:.1;filter:blur(70px);pointer-events:none}
+.arc-header{text-align:center;max-width:600px;margin:0 auto 44px;position:relative;z-index:1}
+.sec-ey{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--orange50);margin-bottom:12px}
+.sec-h{font-family:'Luckiest Guy',cursive;font-size:clamp(32px,5vw,56px);letter-spacing:.02em;line-height:.9}
+.arc-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;position:relative;z-index:1}
+.arc-tab{font-family:'Luckiest Guy',cursive;font-size:14px;letter-spacing:.08em;padding:9px 22px;border-radius:4px;border:2.5px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.35);cursor:pointer;transition:all .2s}
+.arc-tab.on{background:var(--orange);color:var(--cream);border-color:var(--orange);box-shadow:4px 4px 0 rgba(0,0,0,.35)}
+.arc-tab:hover:not(.on){border-color:rgba(255,255,255,.22);color:rgba(255,255,255,.6)}
+.arcade-game{display:none;position:relative;z-index:1}
+.arcade-game.show{display:block}
+/* game canvas wrappers */
+.game-box{background:var(--cream);border:3.5px solid var(--black);border-radius:10px;overflow:hidden;box-shadow:7px 7px 0 var(--black);max-width:900px;margin:0 auto;position:relative}
+.game-canvas{display:block;width:100%;height:auto}
+.game-hud-bar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:rgba(254,251,234,.92);border-bottom:2px solid rgba(0,0,0,.08);pointer-events:none;z-index:5}
+.hud-txt{font-family:'Luckiest Guy',cursive;font-size:17px;color:var(--black);letter-spacing:.05em}
+.hud-sm{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray40)}
+/* overlay */
+.game-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(254,251,234,.93);backdrop-filter:blur(4px);z-index:10;padding:20px;text-align:center;transition:opacity .25s}
+.game-overlay.hide{opacity:0;pointer-events:none}
+.ov-title{font-family:'Luckiest Guy',cursive;font-size:clamp(22px,4vw,38px);color:var(--blue);letter-spacing:.04em;line-height:1}
+.ov-sub{font-family:'Tilt Warp',sans-serif;font-size:clamp(12px,1.8vw,15px);color:var(--gray40);margin-top:8px;line-height:1.5}
+.ov-score-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.ov-stat{text-align:center}
+.ov-stat-num{font-family:'Luckiest Guy',cursive;font-size:32px;color:var(--blue)}
+.ov-stat-label{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray40)}
+.gs-btn{margin-top:16px;font-family:'Luckiest Guy',cursive;font-size:15px;letter-spacing:.1em;background:var(--orange);color:var(--cream);border:3px solid var(--black);border-radius:4px;padding:10px 24px;cursor:pointer;box-shadow:4px 4px 0 var(--black);transition:transform .15s,box-shadow .15s}
+.gs-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+/* pizza maker specific */
+#pizzamaker-wrap{background:var(--black);border:3.5px solid var(--black);border-radius:10px;overflow:hidden;box-shadow:7px 7px 0 var(--black);max-width:900px;margin:0 auto;user-select:none}
+/* whack */
+#wat-wrap{background:var(--cream);border:3.5px solid var(--black);border-radius:10px;overflow:hidden;box-shadow:7px 7px 0 var(--black);max-width:740px;margin:0 auto;padding:26px 22px 22px;position:relative}
+.wat-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.wat-stat-num{font-family:'Luckiest Guy',cursive;font-size:28px;color:var(--blue)}
+.wat-stat-label{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray40)}
+.wat-stat{text-align:center}
+.wat-timer-bar{flex:1;margin:0 16px;height:9px;background:var(--blue10);border-radius:5px;overflow:hidden}
+.wat-timer-fill{height:100%;background:var(--orange70);border-radius:5px;transition:width .1s linear;width:100%}
+.wat-target-box{background:var(--blue70);color:var(--cream);border-radius:100px;padding:7px 18px;font-family:'Tilt Warp',sans-serif;font-size:13px;display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.wat-tl{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(254,251,234,.45)}
+.wat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.wat-hole{aspect-ratio:1;border-radius:10px;background:var(--blue10);border:2.5px solid var(--blue20);display:flex;align-items:center;justify-content:center;font-size:clamp(22px,3.2vw,38px);cursor:pointer;transition:transform .12s,background .12s;user-select:none}
+.wat-hole:hover{background:var(--blue20)}
+.wat-hole.active{background:var(--orange10);border-color:var(--orange50);transform:scale(1.05)}
+.wat-hole.hit{background:rgba(52,168,83,.15);border-color:#34a853;animation:wHit .22s ease}
+.wat-hole.wrong{background:var(--orange10);border-color:var(--orange);animation:wWrong .22s ease}
+@keyframes wHit{0%{transform:scale(1.05)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes wWrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#wat-screen{position:absolute;inset:0;background:rgba(254,251,234,.93);backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;z-index:5;padding:20px}
+#wat-screen.hide{display:none}
+
+/* ══════ VIBE ══════ */
+#s-vibe{background:var(--cream);padding:100px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden}
+.vibe-pb{position:absolute;right:0;top:0;bottom:0;width:46%;background:var(--blue70);clip-path:polygon(12% 0,100% 0,100% 100%,0% 100%);overflow:hidden}
+.vibe-pb::after{content:'';position:absolute;inset:0;background-image:url('Z.svg');background-size:100% auto;background-repeat:no-repeat;background-position:center center;opacity:.35}
+#s-vibe::before{content:'';position:absolute;left:0;top:0;bottom:0;width:52%;background:linear-gradient(135deg,var(--cream) 60%,var(--blue10) 100%);pointer-events:none}
+.section-eyebrow{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.section-h{font-family:'Luckiest Guy',cursive;font-size:clamp(32px,4.5vw,54px);color:var(--black);line-height:.9;letter-spacing:.02em}
+.section-h .bl{color:var(--blue)}.section-h .or{color:var(--orange)}
+.vibe-sub{font-family:'Tilt Warp',sans-serif;font-size:17px;color:var(--gray60);margin-top:18px;line-height:1.6;max-width:400px}
+.vibe-body{font-family:'Poppins',sans-serif;font-size:14px;color:var(--gray60);line-height:1.8;margin-top:12px;max-width:420px}
+.vibe-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;padding:7px 16px;border:2px solid var(--blue20);border-radius:100px;color:var(--blue70);background:var(--blue10);transition:all .2s}
+.pill:hover{background:var(--blue);color:var(--cream);border-color:var(--blue)}
+.vibe-cards{display:flex;flex-direction:column;gap:12px}
+.vc{background:var(--blue70);border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:14px;transition:transform .25s;cursor:default}
+.vc:hover{transform:translateX(10px)}
+.vc:nth-child(2){background:var(--orange70)}.vc:nth-child(3){background:var(--blue50)}.vc:nth-child(4){background:var(--gray80)}
+.vc-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.vc-title{font-family:'Tilt Warp',sans-serif;font-size:15px;color:var(--cream);margin-bottom:3px}
+.vc-text{font-family:'Poppins',sans-serif;font-size:12px;color:rgba(254,251,234,.55);line-height:1.6}
+
+/* ══════ MENU ══════ */
+#s-menu{background:var(--black);padding:100px 72px;position:relative;overflow:hidden}
+#s-menu::before{content:'';position:absolute;inset:0;background-image:url('Z.svg');background-size:100% auto;background-repeat:no-repeat;background-position:center center;opacity:.11;pointer-events:none}
+#s-menu::after{content:'';position:absolute;top:0;right:0;width:500px;height:400px;background:var(--orange);opacity:.06;filter:blur(80px);pointer-events:none}
+.menu-header{text-align:center;max-width:680px;margin:0 auto 44px;position:relative;z-index:1}
+.menu-header .section-eyebrow{color:var(--orange50)}.menu-header .section-h{color:var(--cream)}
+.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;position:relative;z-index:1}
+.fb{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:100px;border:2px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.38);cursor:pointer;transition:all .2s}
+.fb.on,.fb:hover{background:var(--orange);color:var(--cream);border-color:var(--orange)}
+.pgrid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:20px;position:relative;z-index:1}
+.pc{background:var(--cream);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer}
+.pc:hover{transform:translateY(-8px) rotate(.3deg);box-shadow:0 24px 48px rgba(0,0,0,.5)}.pc.hide{display:none}
+.pc-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;overflow:hidden;background:#1414cc}
+.pc-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.18) 100%)}
+.pc-info{padding:15px 17px 18px}
+.pc-name{font-family:'Luckiest Guy',cursive;font-size:19px;letter-spacing:.05em;color:var(--black)}
+.pc-desc{font-family:'Poppins',sans-serif;font-size:11.5px;color:var(--gray60);line-height:1.65;margin-top:4px}
+.pc-tags{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.tag{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:100px}
+.tag-v{background:rgba(52,168,83,.12);color:#2d8a45}
+.tag-s{background:var(--orange10);color:var(--orange)}
+.tag-f{background:var(--blue10);color:var(--blue70)}
+.tag-n{background:var(--orange);color:var(--cream)}
+.menu-cta{text-align:center;margin-top:42px;position:relative;z-index:1}
+.menu-cta p{font-family:'Poppins',sans-serif;font-size:13px;color:rgba(254,251,234,.3);margin-bottom:14px}
+
+/* ══════ ABOUT ══════ */
+#s-about{background:var(--cream);padding:100px 72px;position:relative;overflow:hidden}
+#s-about::before{content:'';position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--blue70);clip-path:polygon(0 0,82% 0,100% 100%,0 100%)}
+#s-about::after{content:'';position:absolute;left:0;top:0;bottom:0;width:38%;background-image:url('Z.svg');background-size:200% auto;background-repeat:no-repeat;background-position:center center;opacity:.3;clip-path:polygon(0 0,82% 0,100% 100%,0 100%);pointer-events:none}
+.about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:center;position:relative;z-index:1}
+.about-badge{background:var(--orange70);color:var(--cream);font-family:'Luckiest Guy',cursive;font-size:12px;letter-spacing:.1em;padding:7px 16px;border-radius:3px;display:inline-block;transform:rotate(-2deg);box-shadow:3px 3px 0 rgba(0,0,0,.18);width:fit-content}
+.about-img-card{background:var(--blue10);border:2.5px solid var(--blue20);border-radius:16px;padding:30px;position:relative;overflow:hidden}
+.about-img-card::before{content:'🌾';font-size:85px;position:absolute;bottom:-10px;right:-10px;opacity:.07}
+.about-quote{font-family:'Tilt Warp',sans-serif;font-size:20px;color:var(--blue70);line-height:1.3}
+.about-quote span{color:var(--orange70)}
+.about-hours{background:var(--gray80);border-radius:12px;padding:20px 22px}
+.about-p{font-family:'Poppins',sans-serif;font-size:14px;color:var(--gray60);line-height:1.8;margin-top:14px}
+
+/* ══════ CTA / FOOTER ══════ */
+#s-cta{background:var(--blue70);padding:80px 72px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden}
+#s-cta::before{content:'';position:absolute;inset:0;background-image:url('Z.svg');background-size:100% auto;background-repeat:no-repeat;background-position:center center;opacity:.32;pointer-events:none}
+#s-cta::after{content:'';position:absolute;bottom:-60px;right:10%;width:300px;height:300px;background:var(--orange50);border-radius:50%;opacity:.12;filter:blur(50px);pointer-events:none}
+.cta-text{position:relative;z-index:1}
+.cta-text h2{font-family:'Luckiest Guy',cursive;font-size:clamp(30px,4vw,50px);color:var(--cream);line-height:.9}
+.cta-text h2 span{color:var(--orange20)}
+.cta-text p{font-family:'Poppins',sans-serif;font-size:14px;color:rgba(254,251,234,.5);margin-top:10px}
+.cta-btns{display:flex;gap:14px;flex-wrap:wrap;position:relative;z-index:1}
+footer{background:var(--black);padding:60px 72px 32px}
+.fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:56px}
+.f-logo{font-family:'Luckiest Guy',cursive;font-size:29px;color:var(--cream);letter-spacing:.04em}
+.f-logo span{color:var(--orange70)}
+.f-desc{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--orange70);margin-top:4px}
+.f-p{font-family:'Poppins',sans-serif;font-size:12.5px;color:var(--gray40);margin-top:14px;line-height:1.8;max-width:255px}
+.f-col h4{font-family:'Luckiest Guy',cursive;font-size:14px;letter-spacing:.12em;color:var(--orange70);margin-bottom:14px}
+.f-col a,.f-col p{display:block;font-family:'Poppins',sans-serif;font-size:12px;color:var(--gray40);text-decoration:none;margin-bottom:7px;line-height:1.7;transition:color .2s}
+.f-col a:hover{color:var(--orange50)}
+.f-bot{max-width:1100px;margin:36px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;font-family:'Poppins',sans-serif;font-size:11px;color:var(--gray60)}
+
+/* MODAL */
+#modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);z-index:9990;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+#modal-ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--cream);border-radius:16px;max-width:450px;width:90%;padding:34px;position:relative;transform:scale(.88) translateY(20px);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+#modal-ov.open .modal{transform:scale(1) translateY(0)}
+.modal-x{position:absolute;top:13px;right:13px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--black);padding:4px 8px}
+.modal-img{width:100%;height:200px;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.modal-img img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-name{font-family:'Luckiest Guy',cursive;font-size:27px;letter-spacing:.05em;color:var(--black)}
+.modal-desc{font-family:'Poppins',sans-serif;font-size:13.5px;color:var(--gray60);line-height:1.75;margin-top:9px}
+.modal-tags{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap}
+.modal-btn{margin-top:20px;display:block;text-align:center}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv-l{opacity:0;transform:translateX(-38px);transition:opacity .7s ease,transform .7s ease}
+.rv-r{opacity:0;transform:translateX(38px);transition:opacity .7s ease,transform .7s ease}
+.rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:translate(0)}
+.fp{position:fixed;pointer-events:none;font-size:20px;z-index:99997;opacity:0;animation:fpU 2s ease forwards}
+@keyframes fpU{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(-120px) rotate(480deg)}}
+@media(max-width:900px){
+  #s-land,#s-vibe,#s-about,#s-cta,#s-arcade,#s-menu,#s-featured{padding:68px 20px}
+  #s-vibe{grid-template-columns:1fr}.about-inner{grid-template-columns:1fr;gap:32px}
+  .land-photos-row{grid-template-columns:1fr;gap:8px}
+  .land-photos-row .media-cell:first-child{border-radius:0}
+  .land-photos-row .media-cell:last-child{border-radius:0 0 16px 16px}
+  .land-video-cell{border-radius:16px 16px 0 0}
+  .fg{grid-template-columns:1fr;gap:28px}
+  nav{padding:13px 18px}nav.sc{padding:11px 18px}.nav-links{gap:14px}
+  .vibe-pb,#s-about::before,#s-about::after{display:none}
+  .wat-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-ring"></div><div id="prog"></div>
+
+<!-- ═══════════════════════════════════════
+     HERO GATE — DANCING ALPACA
+═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════
+     MAIN PAGE
+═══════════════════════════════════════ -->
+<div id="main">
+  <nav id="nav">
+    <div class="nav-logo"><img src="logo.png"  id="nav-logo-img" style="width:140px; height:auto;display:block;filter:invert(1) brightness(2);transition:filter .3s"></div>
+    
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    
+    <div class="nav-links" id="nav-links">
+      <a href="#s-land" onclick="closeNav()">Home</a><a href="#s-featured" onclick="closeNav()">Top Picks</a><a href="#s-arcade">Arcade</a>
+      <a href="#s-menu">Menu</a><a href="#s-vibe">Vibe</a><a href="#s-neighbor">Neighbor List</a><a href="#s-about">About</a>
+      <a href="https://farmspizza-io.github.io/catering-form/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn3ZciBo-razJZmwyAvmVi_SlM9mUVV7nkFhl9f5uBY7xauAQurbkpVogyC9Y_aem_ydSO76S2qqgBeJAeb0EDGQ" target="_blank" class="nav-cta ghost">Catering</a>
+      <a href="https://www.farmspizza.com/order" target="_blank" class="nav-cta">Order Now</a>
+    </div>
+  </nav>
+
+  <section id="s-land">
+    <div class="land-inner">
+
+      <!-- Logo — centered above everything -->
+      <div class="land-logo">
+       </br>
+       </br>
+     
+      </div>
+
+      <!-- Media block with tagline overlaid on top -->
+      <div class="land-media-wrap">
+        <!-- Tagline overlay — sits on top of media -->
+        <div class="land-overlay">
+          <h1 class="h1">YOUR SPOT.<br><span class="o">YOUR SLICE.</span></h1>
+          <p class="h-sub">Built for hangouts. Made to feel local.</p>
+          <div class="h-ctas">
+            <a href="#s-menu" class="btn-p">See the Menu</a>
+            <a href="https://www.farmspizza.com/order" target="_blank" class="btn-o">Order Online</a>
+          </div>
+        </div>
+
+        <!-- Video — full width on top -->
+        <div class="land-video-cell">
+          <video autoplay muted loop playsinline>
+              <source src="pizza-video.mp4" type="video/mp4"/>
+          </video>
+          <div class="media-label">FRESH DOUGH</div>
+        </div>
+
+        <!-- Two photos below the video -->
+        <div class="land-photos-row">
+          <div class="media-cell">
+            <img src="MEATIZZA_LAND.jpg" alt="Wood fired pizza" loading="lazy"/>
+            <div class="media-label">BOLD FLAVORS</div>
+          </div>
+          <div class="media-cell">
+            <img src="Wings.png" alt="Bold toppings" loading="lazy"/>
+            <div class="media-label">JUST BUILT DIFFERENT</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="mq-wrap">
+    <div class="mq-track">
+      <span>FARMS PIZZA</span><span class="dot">✦</span><span>ROSEVILLE CA</span><span class="dot">✦</span><span>BUILT FOR HANGOUTS</span><span class="dot">✦</span><span>MADE TO FEEL LOCAL</span><span class="dot">✦</span><span>ALPACA APPROVED</span><span class="dot">✦</span><span>BOLD FLAVORS</span><span class="dot">✦</span><span>COMMUNITY FIRST</span><span class="dot">✦</span><span>ORDER ONLINE</span><span class="dot">✦</span>
+      <span>FARMS PIZZA</span><span class="dot">✦</span><span>ROSEVILLE CA</span><span class="dot">✦</span><span>BUILT FOR HANGOUTS</span><span class="dot">✦</span><span>MADE TO FEEL LOCAL</span><span class="dot">✦</span><span>ALPACA APPROVED</span><span class="dot">✦</span><span>BOLD FLAVORS</span><span class="dot">✦</span><span>COMMUNITY FIRST</span><span class="dot">✦</span><span>ORDER ONLINE</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- NEIGHBOR LIST -->
+  <section id="s-neighbor">
+    <div class="neighbor-inner">
+
+      <!-- LEFT: TEXT -->
+      <div class="neighbor-text">
+        <div class="neighbor-eyebrow">🏡 Join the Community</div>
+        <h2 class="neighbor-h">BECOME A<br><span>NEIGHBOR.</span><br>EAT FOR FREE.</h2>
+
+        <div class="neighbor-offer">
+          <div class="neighbor-offer-emoji">🧀</div>
+          <div class="neighbor-offer-text">
+            <strong>FREE Garlic Country Sticks</strong>
+            just for joining the Neighbor List
+          </div>
+        </div>
+
+        <ul class="neighbor-perks">
+          <li>Exclusive deals and coupons delivered straight to you</li>
+          <li>First access to new menu drops and limited specials</li>
+          <li>VIP offers reserved only for Neighbors</li>
+          <li>News and updates from the Farms Pizza family</li>
+          <li>Birthday surprises — because you deserve it</li>
+        </ul>
+
+        <a href="https://farmspizza.com/join-the-club" target="_blank" class="neighbor-cta-btn">
+          CLAIM MY FREE CHEESY STICKS →
+        </a>
+        <p class="neighbor-fine">Join free. No spam. Unsubscribe anytime. Offer valid on your next visit.</p>
+      </div>
+
+      <!-- RIGHT: IMAGE -->
+      <div class="neighbor-img-wrap">
+        <div class="neighbor-badge">NEIGHBORS EAT FREE</div>
+        <img src="garlic-sticks.jpg" alt="Garlic Country Sticks" loading="lazy"/>
+        <div class="neighbor-img-overlay"></div>
+      </div>
+
+    </div>
+  </section>
+  
+  <!-- FEATURED SECTION -->
+  <section id="s-featured">
+    <div class="featured-header rv">
+      <p class="section-eyebrow" style="color:var(--orange)">🏆 Top Picks of 2026</p>
+      <h2 class="section-h" style="color:var(--black)">WHAT EVERYONE'S<br><span class="or">ORDERING.</span></h2>
+      <p style="font-family:'Poppins',sans-serif;font-size:14px;color:var(--gray60);margin-top:14px;line-height:1.7">Our latest additions are already turning heads. These three are flying out the oven.</p>
+    </div>
+
+    <div class="featured-grid">
+
+      <!-- #1 Kickin' Elote -->
+      <div class="feat-card rv" onclick="openM('Kickin\' Elote','kickin-elote-hero.jpg','Street corn meets Farms Pizza. Roasted corn, red onion, cilantro, tajín seasoning, and a lime crema drizzle. Bold, funky, and completely unforgettable.','specialty,veggie')">
+        <div class="feat-rank gold">1</div>
+        <img src="kickin-elote-hero.jpg" alt="Kickin Elote" class="feat-img" loading="lazy"/>
+        <div class="feat-body">
+          <div class="feat-badge">✦ New 2026 · Fan Fave</div>
+          <div class="feat-name">Kickin' Elote</div>
+          <div class="feat-desc">Street corn on a pizza. Roasted corn, cotija, tajín, lime crema & jalapeños. The flavor nobody expected — and nobody can stop ordering.</div>
+          <div class="feat-tags"><span class="tag tag-v">Veggie</span><span class="tag tag-s">Spicy</span><span class="tag tag-n">#1 New Arrival</span></div>
+        </div>
+      </div>
+
+      <!-- #2 Masala -->
+      <div class="feat-card rv" style="transition-delay:.1s" onclick="openM('Masala Pizza','Masala-Paneer_Chicken.png','Aromatic masala sauce, mozzarella, green pepper, red onion, fresh cilantro, and your choice of chicken or paneer. East meets West in the most delicious way possible.','specialty,veggie')">
+        <div class="feat-rank silver">2</div>
+        <img src="Masala-Paneer_Chicken.png" alt="Masala Pizza" class="feat-img" loading="lazy"/>
+        <div class="feat-body">
+          <div class="feat-badge">✦ New 2026 · Two Ways</div>
+          <div class="feat-name">Masala Pizza</div>
+          <div class="feat-desc">Aromatic masala sauce, mozzarella, and your choice of chicken or paneer. East meets West. Bold, warming, and unlike anything else on the menu.</div>
+          <div class="feat-tags"><span class="tag tag-n">Unique</span><span class="tag tag-v">Paneer</span><span class="tag tag-f">Chicken</span></div>
+        </div>
+      </div>
+
+      <!-- #3 Chicken Bacon Ranch -->
+      <div class="feat-card rv" style="transition-delay:.2s" onclick="openM('Chicken Bacon Ranch','Chicken_Bacon_Ranch.png','Ranch base, grilled chicken, crispy bacon, diced tomato, mozzarella, and a ranch drizzle. A perennial Farms favorite that never gets old.','specialty')">
+        <div class="feat-rank bronze">3</div>
+        <img src="Chicken_Bacon_Ranch.png" alt="Chicken Bacon Ranch" class="feat-img" loading="lazy"/>
+        <div class="feat-body">
+          <div class="feat-badge">✦ Top Seller · All-Time</div>
+          <div class="feat-name">Chicken Bacon Ranch</div>
+          <div class="feat-desc">Creamy ranch, grilled chicken, crispy bacon, melted mozzarella. Our perennial best-seller. A classic for a reason — and a reason to keep coming back.</div>
+          <div class="feat-tags"><span class="tag tag-f">Best Seller</span><span class="tag tag-f">Fan Fave</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ARCADE -->
+  <section id="s-arcade">
+    <div class="arc-header rv">
+      <p class="sec-ey">Farms Pizza Arcade</p>
+      <h2 class="sec-h" style="color:var(--cream)">TAKE A <span style="color:var(--orange50)">BREAK.</span></h2>
+      <p style="font-family:'Poppins',sans-serif;font-size:14px;color:rgba(254,251,234,.3);margin-top:12px">Three games. Zero excuses to leave.</p>
+    </div>
+    <div class="arc-tabs rv">
+      <button class="arc-tab on" onclick="switchGame('runner',this)">🦙 Alpaca Run</button>
+      <button class="arc-tab" onclick="switchGame('pizza',this)">🍕 Pizza Maker</button>
+      <button class="arc-tab" onclick="switchGame('whack',this)">👊 Topping Tap</button>
+    </div>
+
+    <!-- ── RUNNER GAME ── -->
+    <div class="arcade-game show" id="arc-runner">
+      <div class="game-box">
+        <!-- FIXED: large canvas 900×280 so obstacles are fully visible -->
+        <canvas class="game-canvas" id="run-canvas" width="900" height="280"></canvas>
+        <div class="game-hud-bar">
+          <div class="hud-txt">SCORE: <span id="run-score">0</span></div>
+          <div style="font-family:'Poppins',sans-serif;font-size:11px;color:var(--gray40)">⎵ SPACE / TAP — DOUBLE JUMP!</div>
+          <div class="hud-sm">BEST: <span id="run-hi">0</span></div>
+        </div>
+        <div class="game-overlay" id="run-ov">
+          <div class="ov-title" id="run-ov-title">ALPACA RUN 🦙</div>
+          <div class="ov-sub" id="run-ov-sub">Jump over obstacles! Space / Tap · Double jump!</div>
+          <div class="ov-score-row" id="run-ov-scores" style="display:none">
+            <div class="ov-stat"><div class="ov-stat-num" id="run-final">0</div><div class="ov-stat-label">Score</div></div>
+            <div class="ov-stat"><div class="ov-stat-num" id="run-best-show">0</div><div class="ov-stat-label">Best</div></div>
+          </div>
+          <button class="gs-btn" onclick="startRunner()">PLAY</button>
+        </div>
+      </div>
+      <p style="font-family:'Poppins',sans-serif;font-size:11px;color:rgba(254,251,234,.22);text-align:center;margin-top:10px">⎵ Space · ↑ Up Arrow · Canvas Tap · Double jump!</p>
+    </div>
+
+    <!-- ── PIZZA MAKER GAME ── -->
+    <div class="arcade-game" id="arc-pizza">
+      <div id="pizzamaker-wrap"></div>
+    </div>
+
+    <!-- ── WHACK-A-TOPPING ── -->
+    <div class="arcade-game" id="arc-whack">
+      <div id="wat-wrap">
+        <div class="wat-hud">
+          <div class="wat-stat"><div class="wat-stat-num" id="wat-score">0</div><div class="wat-stat-label">Score</div></div>
+          <div class="wat-timer-bar"><div class="wat-timer-fill" id="wat-fill"></div></div>
+          <div class="wat-stat"><div class="wat-stat-num" id="wat-lives">3</div><div class="wat-stat-label">Lives ❤️</div></div>
+        </div>
+        <div class="wat-target-box"><span class="wat-tl">Tap the:</span><span id="wat-t-emoji" style="font-size:22px">🧀</span><span id="wat-t-name" style="font-family:'Tilt Warp',sans-serif">Cheese</span></div>
+        <div class="wat-grid" id="wat-grid"></div>
+        <div id="wat-screen">
+          <div class="ov-title" id="wat-gs-title" style="color:var(--blue)">TOPPING TAP!</div>
+          <div class="ov-sub" style="margin-top:8px" id="wat-gs-sub">Tap only the target. Wrong tap or 💣 = lose a life! 30 secs.</div>
+          <div class="ov-score-row" id="wat-result-row" style="display:none">
+            <div class="ov-stat"><div class="ov-stat-num" id="wat-final">0</div><div class="ov-stat-label">Score</div></div>
+            <div class="ov-stat"><div class="ov-stat-num" id="wat-best-display">0</div><div class="ov-stat-label">Best</div></div>
+          </div>
+          <button class="gs-btn" onclick="startWhack()">PLAY</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIBE -->
+  <section id="s-vibe">
+    <div class="vibe-pb"></div>
+    <div style="position:relative;z-index:1" class="rv-l">
+      <p class="section-eyebrow">Who We Are</p>
+      <h2 class="section-h">NOT YOUR<br>AVERAGE<br><span class="bl">PIZZA</span><br><span class="or">JOINT.</span></h2>
+      <p class="vibe-sub">Good pizza. Good energy.<br>A place worth repeating.</p>
+      <p class="vibe-body">Farms Pizza is a modern neighborhood pizza brand built to bring people together — a social, welcoming space where you can hang out, slow down, and enjoy good food in good company.</p>
+      <div class="vibe-pills"><div class="pill">Farm-Inspired</div><div class="pill">Bold Flavors</div><div class="pill">Community Driven</div><div class="pill">Alpaca Approved 🦙</div></div>
+    </div>
+    <div class="vibe-cards rv-r">
+      <div class="vc"><div class="vc-icon">🌾</div><div><div class="vc-title">Farm-Inspired, City-Made</div><div class="vc-text">Fresh ingredients, creative combos, and recipes that respect the craft.</div></div></div>
+      <div class="vc"><div class="vc-icon">🍕</div><div><div class="vc-title">Bold Flavors. No Apologies.</div><div class="vc-text">From Masala to Kickin' Elote — we go there, and it's always worth it.</div></div></div>
+      <div class="vc"><div class="vc-icon">🦙</div><div><div class="vc-title">Alpaca Approved</div><div class="vc-text">Our mascot demands excellence. Standards impossibly high.</div></div></div>
+      <div class="vc"><div class="vc-icon">🫶</div><div><div class="vc-title">Community First</div><div class="vc-text">We show up for schools, sports teams, and every celebration worth eating at.</div></div></div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="s-menu">
+    <div class="menu-header rv"><p class="section-eyebrow">The Menu</p><h2 class="section-h">EVERY PIE<br><span style="color:var(--orange50)">HITS DIFFERENT.</span></h2></div>
+    <div class="filters rv">
+      <button class="fb on" data-f="all">All</button><button class="fb" data-f="classic">Classics</button>
+      <button class="fb" data-f="specialty">Specialties</button><button class="fb" data-f="veggie">🌱 Veggie</button><button class="fb" data-f="sides">🍞 Sides</button>
+    </div>
+    <div class="pgrid">
+
+      <div class="pc" data-c="classic veggie" onclick="openM('Cheese','cheese.jpg','Red sauce, generous mozzarella, Italian herbs. The one that started it all.','classic,veggie')">
+        <div class="pc-img"><img src="cheese.jpg" alt="Cheese Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Cheese</div><div class="pc-desc">Red sauce, melted mozzarella, Italian herbs.</div><div class="pc-tags"><span class="tag tag-v">Veggie</span><span class="tag tag-f">Classic</span></div></div>
+      </div>
+
+      <div class="pc" data-c="classic" onclick="openM('Pepperoni','pepperoni.jpg','Loaded with crispy cupped pepperoni on red sauce and melted mozzarella.','classic')">
+        <div class="pc-img"><img src="pepperoni.jpg" alt="Pepperoni Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Pepperoni</div><div class="pc-desc">Loaded cupped pepperoni, red sauce, melted mozzarella.</div><div class="pc-tags"><span class="tag tag-f">Fan Fave</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Farms Combo','combo.jpg','Red sauce, pepperoni, mushrooms, green pepper, black olives, red onion, Italian sausage.','specialty')">
+        <div class="pc-img"><img src="combo.jpg" alt="Farms Combo Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Farms Combo</div><div class="pc-desc">Pepperoni, mushrooms, green pepper, olives, red onion, sausage.</div><div class="pc-tags"><span class="tag tag-f">Signature</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('5 Meat Combo','5combo.jpg','Five meats on one legendary pie — pepperoni, Canadian bacon, sausage, salami, and bacon.','specialty')">
+        <div class="pc-img"><img src="5combo.jpg" alt="5 Meat Combo Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">5 Meat Combo</div><div class="pc-desc">Pepperoni, Canadian bacon, sausage, salami, bacon.</div><div class="pc-tags"><span class="tag tag-s">Meat Lover</span><span class="tag tag-n">Must Try</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Meatizza','meatizza.jpg','Pepperoni, Canadian bacon, sausage, and more — the ultimate meat lover pizza.','specialty')">
+        <div class="pc-img"><img src="meatizza.jpg" alt="Meatizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Meatizza</div><div class="pc-desc">Pepperoni, Canadian bacon, Italian sausage, and bacon.</div><div class="pc-tags"><span class="tag tag-s">Meat Lover</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('BBQ Chicken','bbq.jpg','BBQ sauce base, seasoned chicken, red onion, mozzarella with a BBQ drizzle.','specialty')">
+        <div class="pc-img"><img src="bbq.jpg" alt="BBQ Chicken Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">BBQ Chicken</div><div class="pc-desc">BBQ base, seasoned chicken, red onion, mozzarella, BBQ drizzle.</div><div class="pc-tags"><span class="tag tag-f">Top Pick</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Chicken Bacon Ranch','Chicken_Bacon_Ranch.png','Ranch base, grilled chicken, crispy bacon, diced tomato, mozzarella, and a ranch drizzle.','specialty')">
+        <div class="pc-img"><img src="chicken-bacon-ranch.jpg" alt="Chicken Bacon Ranch Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Chicken Bacon Ranch</div><div class="pc-desc">Ranch base, chicken, bacon, diced tomato, mozzarella, ranch drizzle.</div><div class="pc-tags"><span class="tag tag-f">Fan Fave</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Buffalo Chicken','buffalo-chicken.jpg','Buffalo sauce, chicken, crispy bacon bits, mozzarella, and a buffalo drizzle.','specialty')">
+        <div class="pc-img"><img src="buffalo-chicken.jpg" alt="Buffalo Chicken Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Buffalo Chicken</div><div class="pc-desc">Buffalo sauce, chicken, bacon bits, mozzarella, buffalo drizzle.</div><div class="pc-tags"><span class="tag tag-s">Spicy</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Hawaiian Pie','hawaiian-pie.jpg','Red sauce, mozzarella, Canadian bacon, pineapple, and crispy bacon.','specialty')">
+        <div class="pc-img"><img src="hawaiian-pie.jpg" alt="Hawaiian Pie" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Hawaiian Pie</div><div class="pc-desc">Red sauce, mozzarella, Canadian bacon, pineapple, crispy bacon.</div><div class="pc-tags"><span class="tag tag-n">Controversial 👀</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty veggie" onclick="openM('Kickin\' Elote','kickin-elote-hero.jpg','Corn, red onion, cilantro, tajín seasoning, and a lime crema drizzle on a savory base.','specialty,veggie')">
+        <div class="pc-img"><img src="elote.jpg" alt="Kickin Elote Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Kickin' Elote</div><div class="pc-desc">Corn, red onion, cilantro, tajín, lime crema drizzle.</div><div class="pc-tags"><span class="tag tag-v">Veggie</span><span class="tag tag-s">Spicy</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty" onclick="openM('Italian Beef','italian-beef.jpg','Seasoned ground beef, red onion, black olives, mozzarella, and a creamy white drizzle.','specialty')">
+        <div class="pc-img"><img src="italian-beef.jpg" alt="Italian Beef Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Italian Beef</div><div class="pc-desc">Seasoned beef, red onion, black olives, mozzarella, white drizzle.</div><div class="pc-tags"><span class="tag tag-n">Must Try</span></div></div>
+      </div>
+
+      <div class="pc" data-c="specialty veggie" onclick="openM('Masala Pizza','Masala-Paneer_Chicken.png','Aromatic masala sauce, mozzarella, paneer or chicken, green pepper, red onion, and fresh cilantro.','specialty,veggie')">
+        <div class="pc-img"><img src="masala.jpg" alt="Masala Pizza" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Masala Pizza</div><div class="pc-desc">Masala sauce, mozzarella, paneer or chicken, peppers, red onion, cilantro.</div><div class="pc-tags"><span class="tag tag-n">Unique</span><span class="tag tag-f">Chicken</span><span class="tag tag-v">Paneer</span></div></div>
+      </div>
+
+      <div class="pc" data-c="sides" onclick="openM('Country Garlic Sticks','cheesy-garlic-sticks.jpg','Fresh dough baked to golden perfection, loaded with garlic butter and melted mozzarella.','sides')">
+        <div class="pc-img"><img src="cheesy-garlic-sticks.jpg" alt="Country Garlic Sticks" loading="lazy"/></div>
+        <div class="pc-info"><div class="pc-name">Country Garlic Sticks</div><div class="pc-desc">Garlic butter dough, melted mozzarella, golden baked.</div><div class="pc-tags"><span class="tag tag-v">Veggie</span><span class="tag tag-f">Side</span></div></div>
+      </div>
+
+    </div>
+    <div class="menu-cta rv"><p>Want something custom?</p><a href="tel:" class="btn-p" style="display:inline-block">Call to Build Your Own →</a></div>
+  </section>
+
+  <section id="s-about">
+    <div class="about-inner">
+      <div style="display:flex;flex-direction:column;gap:18px" class="rv-l">
+        <div class="about-badge">Locally Owned & Loved</div>
+        <div class="about-img-card"><div class="about-quote">"Pizza is our love language. The alpaca is our <span>spirit animal.</span>"</div></div>
+        <div class="about-hours"><p style="font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange50);margin-bottom:7px">Hours & Location</p><p style="font-family:'Poppins',sans-serif;font-size:13px;color:var(--gray40);line-height:1.8">Mon–Sun: 11am – 10pm<br>4701 Fiddyment Rd, Ste 160<br>Roseville, CA 95747</p></div>
+      </div>
+      <div class="rv-r">
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-h">ROOTED IN<br><span class="bl">ROSEVILLE.</span></h2>
+        <p class="about-p">Farms Pizza is a modern neighborhood pizza brand built on the belief that great pizza should be adventurous, approachable, and made with real care. We're not a chain. We're your neighborhood spot — and we plan to stay that way.</p>
+        <p class="about-p">We believe in the third place. Not home, not work — but that neighborhood corner where you slow down, look up from your phone, and actually connect with the people around you. In a world that keeps pulling us deeper into screens, Farms Pizza is a deliberate step in the other direction.</p>
+        <p class="about-p">We're passionate about fostering real relationships. The long table, the shared pie, the conversation that goes three hours longer than you planned — that's what we're here for. Our community isn't a hashtag. It's the families, coaches, teachers, and neighbors who walk through our door and stay a little longer because it feels good to be here.</p>
+        <div style="margin-top:26px"><a href="https://www.farmspizza.com/order" target="_blank" class="btn-p">Order Now</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-cta">
+    <div class="cta-text rv-l"><h2>GOOD PIZZA.<br><span>GOOD PEOPLE.</span></h2><p>Made for quick bites, shared tables, and nights that turn into a habit.</p></div>
+    <div class="cta-btns rv-r"><a href="https://www.farmspizza.com/order" target="_blank" class="btn-p">Order Online</a><a href="mailto:askfarmspizza@gmail.com" class="btn-o">Catering Inquiry</a></div>
+  </section>
+
+  <footer>
+    <div class="fg">
+        <div><img src="logo.png" alt="Farms Pizza" style="height:38px;display:block;filter:invert(1) brightness(2);margin-bottom:6px"><div class="f-desc">Roseville, CA</div><p class="f-p">Handcrafted pizza built for community, comfort, and connection.</p></div>
+      <div class="f-col"><h4>Navigate</h4><a href="#s-menu">Menu</a><a href="#s-featured">Top Picks</a><a href="#s-arcade">Arcade</a><a href="#s-vibe">Our Vibe</a><a href="#s-about">About</a><a href="https://www.farmspizza.com/order" target="_blank">Order Online</a></div>
+      <div class="f-col"><h4>Find Us</h4><p>4701 Fiddyment Rd, Ste 160<br>Roseville, CA 95747</p><a href="mailto:askfarmspizza@gmail.com">askfarmspizza@gmail.com</a></div>
+    </div>
+    <div class="f-bot"><span>© 2026 Farms Pizza · Roseville, CA 🦙</span><img src="logo.png" alt="Farms Pizza" style="height:22px;filter:invert(1) brightness(.6);opacity:.5"></div>
+  </footer>
+</div>
+
+<div id="modal-ov" onclick="closeM(event)">
+  <div class="modal"><button class="modal-x" onclick="closeM()">✕</button><div class="modal-img"><img id="m-img" src="" alt=""/></div><div id="m-name" class="modal-name"></div><div id="m-desc" class="modal-desc"></div><div id="m-tags" class="modal-tags"></div><div class="modal-btn"><a href="https://www.farmspizza.com/order" target="_blank" class="btn-p" style="display:block;text-align:center">Order This One →</a></div></div>
+</div>
+
+<script>
+    
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeNav() {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', e => {
+      if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        closeNav();
+      }
+    });
+/* ══ CURSOR ══ */
+const CUR=document.getElementById('cur'),RING=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;CUR.style.left=mx+'px';CUR.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;RING.style.left=rx+'px';RING.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.pc,.vc,.fb,.arc-tab,.wat-hole').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ══ ENTER SITE ══ */
+
+
+/* ══ PARTICLE ══ */
+function spawnPar(x,y,e){
+  const el=document.createElement('div');el.className='fp';el.textContent=e;
+  el.style.left=(x||200)+'px';el.style.top=(y||200)+'px';
+  document.body.appendChild(el);setTimeout(()=>el.remove(),2200);
+}
+
+/* ════════════════════════════════════════════════════════
+   RUNNER GAME — REWRITTEN, CLEAN & SOLID
+   Large canvas (900×280). Obstacles drawn BIG with bright
+   contrasting colours. Ground line clearly visible.
+════════════════════════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('run-canvas');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width, H=cv.height;
+  const GROUND=H-50; // y position of ground top
+
+  // palette
+  const C={
+    sky:'#EEEEFF', ground:'#2F2FEA', groundLine:'#4343EC',
+    cream:'#FEFBEA', blue:'#2F2FEA', orange:'#FF581C', black:'#000',
+    cloud:'rgba(67,67,236,0.07)'
+  };
+
+  // player
+  const P={x:90, y:GROUND, w:56, h:64, vy:0, jumps:0, MAX_J:2};
+  const GRAV=0.72, J=[-16, -13]; // jump forces
+
+  // scrolling vars
+  let spd, frame, score, hiScore, running, obstacles, clouds, nextObs, obsGap;
+  hiScore=parseInt(localStorage.getItem('rhi')||'0');
+  document.getElementById('run-hi').textContent=hiScore;
+
+  // obstacle definitions — BIG, bright, unmissable
+  const ODEFS=[
+    // type, width, height, draw fn
+    {w:44,h:56,color:'#FF581C',label:'📦',draw(c,x,y,w,h){
+      c.fillStyle='#FF581C';c.strokeStyle='#000';c.lineWidth=3;
+      c.beginPath();c.roundRect(x,y,w,h,6);c.fill();c.stroke();
+      c.fillStyle='#FEFBEA';c.font='bold 10px Poppins,sans-serif';c.textAlign='center';
+      c.fillText('BOX',x+w/2,y+h/2-4);c.fillText('📦',x+w/2,y+h/2+12);
+    }},
+    {w:36,h:62,color:'#FF3300',label:'🔥',draw(c,x,y,w,h){
+      c.font=(h-4)+'px serif';c.textAlign='center';c.fillText('🔥',x+w/2,y+h);
+    }},
+    {w:30,h:56,color:'#FF581C',label:'🫙',draw(c,x,y,w,h){
+      c.fillStyle='#FF581C';c.strokeStyle='#000';c.lineWidth=2.5;
+      c.beginPath();c.roundRect(x+4,y+14,w-8,h-14,5);c.fill();c.stroke();
+      c.fillStyle='#FEFBEA';c.beginPath();c.roundRect(x+8,y,w-16,16,4);c.fill();c.stroke();
+      c.fillStyle='#000';c.font='bold 8px sans-serif';c.textAlign='center';c.fillText('HOT',x+w/2,y+h/2+4);
+    }},
+    {w:50,h:50,color:'#FF581C',label:'🍕',draw(c,x,y,w,h){
+      c.font=(h+4)+'px serif';c.textAlign='center';c.fillText('🍕',x+w/2,y+h);
+    }},
+    {w:36,h:72,color:'#2F2FEA',label:'FP',draw(c,x,y,w,h){
+      c.fillStyle='#2F2FEA';c.strokeStyle='#000';c.lineWidth=3;
+      c.beginPath();c.roundRect(x,y,w,h,5);c.fill();c.stroke();
+      c.fillStyle='#FEFBEA';c.font='bold 8px Poppins,sans-serif';c.textAlign='center';
+      c.fillText('FARMS',x+w/2,y+h*.45);c.fillText('PIZZA',x+w/2,y+h*.6);
+    }},
+    {w:44,h:44,color:'#FF3300',label:'🌶️',draw(c,x,y,w,h){
+      c.font=(h+2)+'px serif';c.textAlign='center';c.fillText('🌶️',x+w/2,y+h);
+    }},
+  ];
+
+  let bgPat=null;
+  (()=>{const pc=document.createElement('canvas');pc.width=24;pc.height=24;
+    const px=pc.getContext('2d');px.strokeStyle='rgba(47,47,234,.055)';px.lineWidth=1.2;
+    px.beginPath();px.moveTo(0,24);px.lineTo(24,0);px.stroke();
+    px.beginPath();px.moveTo(12,24);px.lineTo(24,12);px.stroke();
+    bgPat=ctx.createPattern(pc,'repeat');})();
+
+  function initClouds(){
+    clouds=[];
+    for(let i=0;i<5;i++)clouds.push({x:80+i*190,y:18+Math.random()*30,w:56+Math.random()*30,s:.3+Math.random()*.2});
+  }
+
+  function reset(){
+    spd=4.5;frame=0;score=0;running=true;
+    P.y=GROUND;P.vy=0;P.jumps=0;
+    obstacles=[];nextObs=100;obsGap=100;
+    initClouds();
+    document.getElementById('run-score').textContent='0';
+    document.getElementById('run-ov').classList.add('hide');
+  }
+
+  function jump(){if(!running)return;if(P.jumps<P.MAX_J){P.vy=J[P.jumps];P.jumps++;}}
+
+  function drawBG(){
+    // sky
+    ctx.fillStyle=C.sky;ctx.fillRect(0,0,W,H);
+    if(bgPat){ctx.fillStyle=bgPat;ctx.fillRect(0,0,W,H);}
+    // sky gradient tint
+    const g=ctx.createLinearGradient(0,0,0,GROUND);
+    g.addColorStop(0,'rgba(67,67,236,0.06)');g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,GROUND);
+    // clouds
+    clouds.forEach(cl=>{
+      ctx.fillStyle=C.cloud;
+      ctx.beginPath();ctx.ellipse(cl.x,cl.y,cl.w/2,10,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(cl.x-cl.w*.22,cl.y+5,cl.w*.3,8,0,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.ellipse(cl.x+cl.w*.24,cl.y+5,cl.w*.26,7,0,0,Math.PI*2);ctx.fill();
+      if(running){cl.x-=cl.s;if(cl.x<-cl.w)cl.x=W+cl.w;}
+    });
+    // ground block
+    ctx.fillStyle=C.ground;ctx.fillRect(0,GROUND+P.h,W,H-(GROUND+P.h));
+    // dashed ground line
+    ctx.save();ctx.strokeStyle='rgba(254,251,234,0.3)';ctx.lineWidth=2;ctx.setLineDash([14,12]);
+    ctx.beginPath();ctx.moveTo(0,GROUND+P.h+4);ctx.lineTo(W,GROUND+P.h+4);ctx.stroke();
+    ctx.setLineDash([]);ctx.restore();
+    // ground label
+    ctx.fillStyle='rgba(254,251,234,0.2)';ctx.font='bold 9px Poppins,sans-serif';ctx.textAlign='left';
+    ctx.fillText('FARMS PIZZA · ROSEVILLE CA',10,H-10);
+  }
+
+  function drawAlpaca(){
+    const x=P.x,y=P.y,h=P.h,w=P.w;
+    const r2=Math.floor(frame/5)%2===0;
+    ctx.save();
+    // legs
+    [[x+10,r2?7:-5],[x+21,r2?-5:7],[x+32,r2?6:-4],[x+43,r2?-4:6]].forEach(([lx,off])=>{
+      ctx.fillStyle='#d4b040';ctx.strokeStyle=C.black;ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.roundRect(lx-5,y+h,9,14,4);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#a08030';ctx.beginPath();ctx.ellipse(lx,y+h+14,6,3,0,0,Math.PI*2);ctx.fill();
+    });
+    // body
+    ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=3;
+    ctx.beginPath();ctx.ellipse(x+w*.52,y+h*.6,24,20,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    // body fluff
+    [[x+12,y+h*.44],[x+28,y+h*.38],[x+42,y+h*.44]].forEach(([bx,by])=>{
+      ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.arc(bx,by,5,Math.PI,0);ctx.stroke();
+    });
+    // neck
+    ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.roundRect(x+18,y+h*.18,15,h*.44,7);ctx.fill();ctx.stroke();
+    // brand patch
+    ctx.fillStyle=C.blue;ctx.beginPath();ctx.roundRect(x+12,y+h*.55,30,14,3);ctx.fill();
+    ctx.fillStyle='#FEFBEA';ctx.font='bold 7px sans-serif';ctx.textAlign='center';
+    ctx.fillText('FARMS',x+27,y+h*.55+10);
+    // head
+    ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.ellipse(x+22,y+h*.14,17,16,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    // top fluff
+    ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2;
+    [[x+13,y-3,9,7],[x+22,y-7,10,7],[x+31,y-3,8,6]].forEach(([bx,by,rw,rh])=>{
+      ctx.beginPath();ctx.ellipse(bx,by,rw,rh,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    });
+    // ears
+    [[-12,-4,.3],[12,-3,-.3]].forEach(([dx,dy,rot])=>{
+      const ex=x+22+dx,ey=y+h*.05+dy;
+      ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2;
+      ctx.beginPath();ctx.ellipse(ex,ey,5,10,rot,0,Math.PI*2);ctx.fill();ctx.stroke();
+      ctx.fillStyle=C.orange;ctx.beginPath();ctx.ellipse(ex,ey,2.8,6,rot,0,Math.PI*2);ctx.fill();
+    });
+    // snout
+    ctx.fillStyle=C.orange;ctx.strokeStyle=C.black;ctx.lineWidth=2.2;
+    ctx.beginPath();ctx.ellipse(x+23,y+h*.26,8,7,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='rgba(0,0,0,.45)';
+    ctx.beginPath();ctx.ellipse(x+20,y+h*.26,2.2,2,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(x+27,y+h*.26,2.2,2,0,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=C.black;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(x+23,y+h*.26,5,0,Math.PI);ctx.stroke();
+    // eyes
+    [[x+15,y+h*.1],[x+30,y+h*.1]].forEach(([ex,ey])=>{
+      ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2.2;
+      ctx.beginPath();ctx.ellipse(ex,ey,5,5.5,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+      ctx.fillStyle=C.black;ctx.beginPath();ctx.ellipse(ex+1,ey,3.2,3.5,0,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='white';ctx.beginPath();ctx.ellipse(ex+2.2,ey-1.2,1.3,1.3,0,0,Math.PI*2);ctx.fill();
+    });
+    ctx.strokeStyle=C.black;ctx.lineWidth=1.5;ctx.lineCap='round';
+    ctx.beginPath();ctx.arc(x+15,y+h*.04,5,Math.PI+.4,Math.PI*2-.4);ctx.stroke();
+    ctx.beginPath();ctx.arc(x+30,y+h*.04,5,Math.PI+.4,Math.PI*2-.4);ctx.stroke();
+    // tail
+    const tw=Math.sin(frame*.15)*8;
+    ctx.fillStyle='white';ctx.strokeStyle=C.black;ctx.lineWidth=2;
+    ctx.beginPath();ctx.ellipse(x+w,y+h*.47+tw*.3,7,12,0.38,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.restore();
+  }
+
+  function die(){
+    running=false;
+    if(score>hiScore){hiScore=score;localStorage.setItem('rhi',hiScore);}
+    document.getElementById('run-hi').textContent=hiScore;
+    const ov=document.getElementById('run-ov');ov.classList.remove('hide');
+    document.getElementById('run-ov-title').textContent='GAME OVER!';
+    document.getElementById('run-ov-sub').textContent='Nice run, alpaca! 🦙';
+    document.getElementById('run-ov-scores').style.display='flex';
+    document.getElementById('run-final').textContent=score;
+    document.getElementById('run-best-show').textContent=hiScore;
+  }
+
+  function tick(){
+    if(!running){drawBG();drawAlpaca();return;}
+    frame++;
+    if(frame%360===0)spd=Math.min(spd+.4,11);
+    score=Math.floor(frame*.12);
+    document.getElementById('run-score').textContent=score;
+
+    // physics
+    P.vy+=GRAV;P.y+=P.vy;
+    if(P.y>=GROUND){P.y=GROUND;P.vy=0;P.jumps=0;}
+
+    // spawn
+    nextObs--;
+    if(nextObs<=0){
+      const o=ODEFS[Math.floor(Math.random()*ODEFS.length)];
+      obstacles.push({x:W+10,def:o,y:GROUND+P.h-o.h});
+      obsGap=Math.max(46,obsGap-.3);nextObs=obsGap;
+    }
+    obstacles=obstacles.map(o=>({...o,x:o.x-spd})).filter(o=>o.x>-80);
+
+    // collision — generous padding so it feels fair
+    const ax=P.x+12,ay=P.y+8,aw=P.w-22,ah=P.h-12;
+    for(const o of obstacles){
+      if(ax<o.x+o.def.w-6&&ax+aw>o.x+6&&ay<o.y+o.def.h-6&&ay+ah>o.y+6){die();return;}
+    }
+
+    drawBG();
+    obstacles.forEach(o=>o.def.draw(ctx,o.x,o.y,o.def.w,o.def.h));
+    drawAlpaca();
+    // score chip
+    ctx.fillStyle='rgba(47,47,234,0.9)';ctx.beginPath();ctx.roundRect(W-96,8,88,28,4);ctx.fill();
+    ctx.fillStyle='#FEFBEA';ctx.font='bold 14px "Luckiest Guy",cursive';ctx.textAlign='right';
+    ctx.fillText(score,W-10,28);
+  }
+
+  document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}});
+  cv.addEventListener('touchstart',e=>{e.preventDefault();jump();},{passive:false});
+  cv.addEventListener('mousedown',jump);
+  window.startRunner=reset;
+
+  // idle loop
+  initClouds();
+  (function loop(){tick();requestAnimationFrame(loop)})();
+})();
+
+/* ════════════════════════════════════════════════════════
+   PIZZA MAKER GAME
+   Orders come in on a ticket. Drag toppings onto dough.
+   Finish → pizza zooms into oven → score!
+════════════════════════════════════════════════════════ */
+(function(){
+  const TOPPINGS=[
+    {id:'sauce',emoji:'🍅',label:'Sauce',color:'#e63000'},
+    {id:'cheese',emoji:'🧀',label:'Cheese',color:'#f5c518'},
+    {id:'pepperoni',emoji:'🍕',label:'Pepperoni',color:'#c0392b'},
+    {id:'mushroom',emoji:'🍄',label:'Mushroom',color:'#8B6914'},
+    {id:'olive',emoji:'🫒',label:'Olive',color:'#3d5a1e'},
+    {id:'onion',emoji:'🧅',label:'Onion',color:'#c4772a'},
+    {id:'pepper',emoji:'🫑',label:'Pepper',color:'#2ecc71'},
+    {id:'bacon',emoji:'🥓',label:'Bacon',color:'#c0392b'},
+    {id:'chicken',emoji:'🍗',label:'Chicken',color:'#e67e22'},
+    {id:'corn',emoji:'🌽',label:'Corn',color:'#f1c40f'},
+  ];
+
+  const ORDERS=[
+    {name:'Pepperoni Classic',needs:['sauce','cheese','pepperoni']},
+    {name:'Veggie Delight',needs:['sauce','cheese','mushroom','olive','pepper']},
+    {name:'BBQ Chicken',needs:['sauce','cheese','chicken','onion']},
+    {name:'Farms Combo',needs:['sauce','cheese','pepperoni','mushroom','olive']},
+    {name:'Bacon Ranch',needs:['sauce','cheese','bacon','onion']},
+    {name:'Corn Fiesta',needs:['sauce','cheese','corn','pepper','onion']},
+  ];
+
+  let gameScore=0,hiScore=parseInt(localStorage.getItem('pm_hi')||'0');
+  let currentOrder=null,addedToppings=[],pizzaAnim=null,gameRunning=false;
+  let ordersCompleted=0;
+
+  const wrap=document.getElementById('pizzamaker-wrap');
+  wrap.innerHTML=`
+    <style>
+    #pm-game{display:flex;flex-direction:column;min-height:520px;font-family:'Poppins',sans-serif;background:#0a0a1a;color:#FEFBEA;position:relative}
+    #pm-topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(47,47,234,0.25);border-bottom:2px solid rgba(47,47,234,.3)}
+    #pm-topbar .pm-label{font-family:'Luckiest Guy',cursive;font-size:14px;letter-spacing:.06em;color:#FEFBEA}
+    #pm-topbar .pm-val{font-family:'Luckiest Guy',cursive;font-size:22px;color:#FF7847}
+    #pm-order-ticket{margin:16px 20px 0;background:rgba(254,251,234,.08);border:2px dashed rgba(255,88,28,.4);border-radius:12px;padding:14px 18px}
+    #pm-order-title{font-family:'Luckiest Guy',cursive;font-size:13px;letter-spacing:.1em;color:rgba(255,120,71,.8);margin-bottom:6px}
+    #pm-order-name{font-family:'Luckiest Guy',cursive;font-size:20px;color:#FEFBEA;margin-bottom:8px}
+    #pm-needed{display:flex;gap:8px;flex-wrap:wrap}
+    .pm-need{display:flex;align-items:center;gap:4px;background:rgba(47,47,234,.3);border:1.5px solid rgba(47,47,234,.4);border-radius:100px;padding:4px 10px;font-size:12px;font-weight:600;transition:all .2s}
+    .pm-need.done{background:rgba(52,168,83,.25);border-color:#34a853;text-decoration:line-through;color:rgba(254,251,234,.5)}
+    /* pizza workspace */
+    #pm-workspace{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;min-height:180px}
+    #pm-dough{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#ffe0a0,#d4960a);border:4px solid #b07800;box-shadow:0 8px 32px rgba(0,0,0,.4);position:relative;display:flex;align-items:center;justify-content:center;transition:transform .3s}
+    #pm-dough.ready{box-shadow:0 0 0 4px #34a853,0 8px 32px rgba(52,168,83,.3);animation:pmPulse .6s ease-in-out infinite alternate}
+    @keyframes pmPulse{from{transform:scale(1)}to{transform:scale(1.04)}}
+    #pm-dough.zoom-out{animation:pmZoom .7s ease-in forwards}
+    @keyframes pmZoom{to{transform:translateX(300px) scale(.3);opacity:0}}
+    #pm-dough-label{font-family:'Luckiest Guy',cursive;font-size:13px;color:rgba(0,0,0,.4);position:absolute;bottom:-28px;width:100%;text-align:center}
+    .pm-topping-dot{position:absolute;font-size:22px;pointer-events:none;transform:translate(-50%,-50%)}
+    /* topping shelf */
+    #pm-shelf{display:flex;flex-wrap:wrap;gap:10px;padding:14px 18px;background:rgba(0,0,0,.3);border-top:2px solid rgba(255,255,255,.06);justify-content:center}
+    .pm-top-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:rgba(254,251,234,.08);border:2.5px solid rgba(254,251,234,.15);border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s;user-select:none;font-size:26px;min-width:56px}
+    .pm-top-btn:hover{background:rgba(255,88,28,.2);border-color:rgba(255,88,28,.5);transform:translateY(-3px)}
+    .pm-top-btn.added{background:rgba(52,168,83,.2);border-color:#34a853}
+    .pm-top-btn span{font-family:'Poppins',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;color:rgba(254,251,234,.5);text-transform:uppercase}
+    /* overlay */
+    #pm-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,26,.9);z-index:20;text-align:center;padding:24px}
+    #pm-overlay.hide{display:none}
+    #pm-overlay .ov-title{font-family:'Luckiest Guy',cursive;font-size:32px;color:#FF7847;letter-spacing:.04em}
+    #pm-overlay .ov-sub{font-family:'Tilt Warp',sans-serif;font-size:14px;color:rgba(254,251,234,.5);margin-top:10px;line-height:1.6}
+    .pm-score-row{display:flex;gap:32px;margin-top:16px;justify-content:center}
+    .pm-st-num{font-family:'Luckiest Guy',cursive;font-size:36px;color:#2F2FEA}
+    .pm-st-label{font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(254,251,234,.4)}
+    #pm-oven-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Luckiest Guy',cursive;font-size:32px;color:#FF7847;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap}
+    /* progress bar */
+    #pm-progress-bar{height:5px;background:rgba(47,47,234,.2);margin:0 20px 0}
+    #pm-progress-fill{height:100%;background:linear-gradient(90deg,#2F2FEA,#FF581C);border-radius:3px;transition:width .4s ease;width:0%}
+    </style>
+    <div id="pm-game">
+      <div id="pm-topbar">
+        <div><div class="pm-label">SCORE</div><div class="pm-val" id="pm-score">0</div></div>
+        <div style="text-align:center"><div class="pm-label" style="color:rgba(254,251,234,.4);font-size:11px">PIZZA MAKER</div><div id="pm-timer-disp" style="font-family:'Luckiest Guy',cursive;font-size:18px;color:#FEFBEA">60s</div></div>
+        <div style="text-align:right"><div class="pm-label">BEST</div><div class="pm-val" id="pm-hi-disp">${hiScore}</div></div>
+      </div>
+      <div id="pm-progress-bar"><div id="pm-progress-fill"></div></div>
+      <div id="pm-order-ticket">
+        <div id="pm-order-title">📋 ORDER TICKET</div>
+        <div id="pm-order-name">—</div>
+        <div id="pm-needed"></div>
+      </div>
+      <div id="pm-workspace">
+        <div id="pm-dough">
+          <div id="pm-dough-label">CLICK TOPPINGS →</div>
+        </div>
+        <div id="pm-oven-msg">INTO THE OVEN! 🔥</div>
+      </div>
+      <div id="pm-shelf"></div>
+      <div id="pm-overlay">
+        <div class="ov-title" id="pm-ov-title">PIZZA MAKER!</div>
+        <div class="ov-sub" id="pm-ov-sub">Add toppings from the shelf to match each order.<br>Complete pizzas → score points! 60 seconds!</div>
+        <div class="pm-score-row" id="pm-ov-scores" style="display:none">
+          <div><div class="pm-st-num" id="pm-final-score">0</div><div class="pm-st-label">Score</div></div>
+          <div><div class="pm-st-num" id="pm-final-hi">0</div><div class="pm-st-label">Best</div></div>
+        </div>
+        <button class="gs-btn" style="margin-top:20px" onclick="window.startPizzaMaker()">PLAY</button>
+      </div>
+    </div>`;
+
+  function buildShelf(){
+    const shelf=document.getElementById('pm-shelf');shelf.innerHTML='';
+    TOPPINGS.forEach(t=>{
+      const btn=document.createElement('div');
+      btn.className='pm-top-btn';btn.id='pmb-'+t.id;
+      btn.innerHTML=`${t.emoji}<span>${t.label}</span>`;
+      btn.addEventListener('click',()=>addTopping(t));
+      shelf.appendChild(btn);
+    });
+  }
+
+  function loadOrder(){
+    const o=ORDERS[Math.floor(Math.random()*ORDERS.length)];
+    currentOrder={...o,needs:[...o.needs]};
+    addedToppings=[];
+    document.getElementById('pm-order-name').textContent=currentOrder.name;
+    // reset buttons
+    document.querySelectorAll('.pm-top-btn').forEach(b=>{b.classList.remove('added');b.style.opacity='1';});
+    // clear dough
+    const dough=document.getElementById('pm-dough');
+    dough.className='';
+    dough.id='pm-dough';
+    dough.innerHTML='<div id="pm-dough-label">CLICK TOPPINGS →</div>';
+    // build needed chips
+    const needed=document.getElementById('pm-needed');needed.innerHTML='';
+    currentOrder.needs.forEach(n=>{
+      const chip=document.createElement('div');chip.className='pm-need';chip.id='pn-'+n;
+      const t=TOPPINGS.find(x=>x.id===n);
+      chip.textContent=`${t.emoji} ${t.label}`;
+      needed.appendChild(chip);
+    });
+  }
+
+  function addTopping(t){
+    if(!gameRunning)return;
+    if(addedToppings.includes(t.id))return;
+    addedToppings.push(t.id);
+    document.getElementById('pmb-'+t.id).classList.add('added');
+    // place emoji on dough at random position
+    const dough=document.getElementById('pm-dough');
+    const dot=document.createElement('div');dot.className='pm-topping-dot';dot.textContent=t.emoji;
+    const angle=Math.random()*Math.PI*2;
+    const r=30+Math.random()*45;
+    dot.style.left=(80+Math.cos(angle)*r)+'px';
+    dot.style.top=(80+Math.sin(angle)*r)+'px';
+    dough.appendChild(dot);
+    // mark needed chip done
+    const chip=document.getElementById('pn-'+t.id);
+    if(chip)chip.classList.add('done');
+    // check done
+    const allDone=currentOrder.needs.every(n=>addedToppings.includes(n));
+    if(allDone){
+      dough.classList.add('ready');
+      setTimeout(()=>sendToOven(),600);
+    }
+  }
+
+  function sendToOven(){
+    const dough=document.getElementById('pm-dough');
+    dough.classList.remove('ready');
+    dough.classList.add('zoom-out');
+    const msg=document.getElementById('pm-oven-msg');
+    msg.style.opacity='1';
+    gameScore+=currentOrder.needs.length*15;
+    ordersCompleted++;
+    document.getElementById('pm-score').textContent=gameScore;
+    document.getElementById('pm-progress-fill').style.width=Math.min(100,ordersCompleted*12)+'%';
+    spawnPar(500,300,'🍕');
+    setTimeout(()=>{msg.style.opacity='0';loadOrder();},900);
+  }
+
+  let timerInterval=null,timeLeft=60;
+  function startTimer(){
+    clearInterval(timerInterval);timeLeft=60;
+    document.getElementById('pm-timer-disp').textContent='60s';
+    timerInterval=setInterval(()=>{
+      timeLeft--;
+      document.getElementById('pm-timer-disp').textContent=timeLeft+'s';
+      if(timeLeft<=0){clearInterval(timerInterval);endGame();}
+    },1000);
+  }
+
+  function endGame(){
+    gameRunning=false;
+    if(gameScore>hiScore){hiScore=gameScore;localStorage.setItem('pm_hi',hiScore);}
+    const ov=document.getElementById('pm-overlay');ov.classList.remove('hide');
+    document.getElementById('pm-ov-title').textContent='TIME\'S UP! 🍕';
+    document.getElementById('pm-ov-sub').textContent=`You made ${ordersCompleted} pizzas!`;
+    document.getElementById('pm-ov-scores').style.display='flex';
+    document.getElementById('pm-final-score').textContent=gameScore;
+    document.getElementById('pm-final-hi').textContent=hiScore;
+    document.getElementById('pm-hi-disp').textContent=hiScore;
+  }
+
+  window.startPizzaMaker=function(){
+    gameScore=0;ordersCompleted=0;gameRunning=true;
+    document.getElementById('pm-score').textContent='0';
+    document.getElementById('pm-progress-fill').style.width='0%';
+    document.getElementById('pm-overlay').classList.add('hide');
+    buildShelf();loadOrder();startTimer();
+  };
+
+  // initial build
+  buildShelf();
+  document.getElementById('pm-hi-disp').textContent=hiScore;
+})();
+
+/* ════════════════════════════════════════════════════════
+   WHACK-A-TOPPING
+════════════════════════════════════════════════════════ */
+const TOPS=[
+  {e:'🧀',n:'Cheese'},{e:'🍕',n:'Pepperoni'},{e:'🫒',n:'Olive'},
+  {e:'🌶️',n:'Jalapeño'},{e:'🧅',n:'Onion'},{e:'🍄',n:'Mushroom'},
+  {e:'🥓',n:'Bacon'},{e:'🍍',n:'Pineapple'},{e:'🌽',n:'Corn'},
+  {e:'🥦',n:'Broccoli'},{e:'🫑',n:'Pepper'},{e:'🍗',n:'Chicken'},
+  {e:'💣',n:'BOMB!',bad:true},{e:'💀',n:'SKULL!',bad:true},{e:'⭐',n:'BONUS +10',bonus:true}
+];
+let W2={running:false,score:0,lives:3,hi:parseInt(localStorage.getItem('fp_wat_hi')||'0'),countId:null,timeLeft:30,target:null,holes:Array(20).fill(null),timers:[]};
+(function buildGrid(){const g=document.getElementById('wat-grid');g.innerHTML='';for(let i=0;i<20;i++){const h=document.createElement('div');h.className='wat-hole';h.addEventListener('click',()=>tapHole(i));g.appendChild(h);}})();
+function startWhack(){
+  W2.running=true;W2.score=0;W2.lives=3;W2.timeLeft=30;
+  document.getElementById('wat-score').textContent='0';document.getElementById('wat-lives').textContent='3';
+  document.getElementById('wat-fill').style.width='100%';document.getElementById('wat-screen').classList.add('hide');
+  W2.timers.forEach(clearTimeout);W2.timers=[];W2.holes=Array(20).fill(null);
+  document.querySelectorAll('.wat-hole').forEach(h=>{h.className='wat-hole';h.textContent='';});
+  pickWT();scheduleTop();
+  W2.countId=setInterval(()=>{W2.timeLeft-=.1;document.getElementById('wat-fill').style.width=Math.max(0,W2.timeLeft/30*100)+'%';if(W2.timeLeft<=0){clearInterval(W2.countId);endWhack();}},100);
+}
+function pickWT(){const s=TOPS.filter(t=>!t.bad&&!t.bonus);W2.target=s[Math.floor(Math.random()*s.length)];document.getElementById('wat-t-emoji').textContent=W2.target.e;document.getElementById('wat-t-name').textContent=W2.target.n;}
+function scheduleTop(){if(!W2.running)return;W2.timers.push(setTimeout(()=>{showTop();scheduleTop();},560+Math.random()*740));}
+function showTop(){
+  const holes=document.querySelectorAll('.wat-hole');
+  const emp=[...holes].map((_,i)=>i).filter(i=>W2.holes[i]===null);if(!emp.length)return;
+  const idx=emp[Math.floor(Math.random()*emp.length)];
+  const r=Math.random();let top;
+  if(r<.38)top=W2.target;
+  else if(r<.51)top=TOPS.find(t=>t.bad&&t.e==='💣');
+  else if(r<.57)top=TOPS.find(t=>t.bonus);
+  else{const s=TOPS.filter(t=>!t.bad&&!t.bonus&&t.n!==W2.target.n);top=s[Math.floor(Math.random()*s.length)];}
+  W2.holes[idx]=top;holes[idx].classList.add('active');holes[idx].textContent=top.e;
+  W2.timers.push(setTimeout(()=>{if(W2.holes[idx]===top){W2.holes[idx]=null;holes[idx].className='wat-hole';holes[idx].textContent='';}},1100+Math.random()*380));
+}
+function tapHole(i){
+  if(!W2.running)return;const top=W2.holes[i];if(!top)return;
+  const holes=document.querySelectorAll('.wat-hole');W2.holes[i]=null;
+  if(top.bad){holes[i].classList.add('wrong');W2.lives=Math.max(0,W2.lives-1);document.getElementById('wat-lives').textContent=W2.lives;if(W2.lives<=0){setTimeout(endWhack,180);return;}}
+  else if(top.bonus){holes[i].classList.add('hit');W2.score+=10;document.getElementById('wat-score').textContent=W2.score;spawnPar(200+Math.random()*200,200,'⭐');}
+  else if(top.n===W2.target.n){holes[i].classList.add('hit');W2.score+=3;document.getElementById('wat-score').textContent=W2.score;if(Math.random()<.28)pickWT();spawnPar(200+Math.random()*200,200,'🍕');}
+  else{holes[i].classList.add('wrong');W2.lives=Math.max(0,W2.lives-1);document.getElementById('wat-lives').textContent=W2.lives;if(W2.lives<=0){setTimeout(endWhack,180);return;}}
+  setTimeout(()=>{holes[i].className='wat-hole';holes[i].textContent='';},200);
+}
+function endWhack(){
+  W2.running=false;clearInterval(W2.countId);W2.timers.forEach(clearTimeout);
+  if(W2.score>W2.hi){W2.hi=W2.score;localStorage.setItem('fp_wat_hi',W2.hi);}
+  const sc=document.getElementById('wat-screen');sc.classList.remove('hide');
+  document.getElementById('wat-gs-title').textContent='TIME\'S UP!';
+  document.getElementById('wat-gs-sub').textContent=`Score: ${W2.score} · Best: ${W2.hi}`;
+  document.getElementById('wat-result-row').style.display='flex';
+  document.getElementById('wat-final').textContent=W2.score;
+  document.getElementById('wat-best-display').textContent=W2.hi;
+}
+
+/* ══ ARCADE TABS ══ */
+function switchGame(id,btn){
+  document.querySelectorAll('.arc-tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('.arcade-game').forEach(g=>g.classList.remove('show'));
+  document.getElementById('arc-'+id).classList.add('show');
+}
+
+/* ══ NAV / PROGRESS / REVEAL ══ */
+const navEl=document.getElementById('nav'),pbar=document.getElementById('prog');
+const navLogoImg=document.getElementById('nav-logo-img');
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY,t=document.body.scrollHeight-window.innerHeight;
+  pbar.style.width=(s/t*100)+'%';
+  const sc=s>60;
+  navEl.classList.toggle('sc',sc);
+  // Logo: white on blue bg, dark (original black inverted to near-black) on cream scrolled bg
+  if(navLogoImg)navLogoImg.style.filter=sc?'invert(0) brightness(.15)':'invert(1) brightness(2)';
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-70)el.classList.add('in');});
+});
+setTimeout(()=>document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-70)el.classList.add('in');}),200);
+
+/* ══ MENU FILTER ══ */
+document.querySelectorAll('.fb').forEach(b=>{
+  b.addEventListener('click',()=>{document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;document.querySelectorAll('.pc').forEach(c=>c.classList.toggle('hide',f!=='all'&&!c.dataset.c.includes(f)));});
+});
+
+/* ══ MODAL ══ */
+function openM(name,img,desc,cats){
+  document.getElementById('m-name').textContent=name;
+  const imgEl=document.getElementById('m-img');imgEl.src=img;imgEl.alt=name;
+  document.getElementById('m-desc').textContent=desc;const t=document.getElementById('m-tags');t.innerHTML='';
+  if(cats.includes('veggie'))t.innerHTML+='<span class="tag tag-v">Veggie</span>';
+  if(cats.includes('specialty'))t.innerHTML+='<span class="tag tag-n">Specialty</span>';
+  if(cats.includes('classic'))t.innerHTML+='<span class="tag tag-f">Classic</span>';
+  document.getElementById('modal-ov').classList.add('open');document.body.style.overflowY='hidden';
+}
+function closeM(e){
+  if(!e||e.target===document.getElementById('modal-ov')||e.currentTarget.classList.contains('modal-x')){
+    document.getElementById('modal-ov').classList.remove('open');document.body.style.overflowY='auto';
+  }
+}
+</script>
+</body>
+</html>
